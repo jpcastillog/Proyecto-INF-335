@@ -15,6 +15,7 @@ def get_twitts(hashtag, file_name, since_date, until_date, format = '', limit = 
     c.Output = file_name
     c.Links = False
     twint.run.Search(c)
+    #c.Lang = "es"
 
 
 custom_retrieve = ['date', 'timezone', 'user_id', 'username', 'tweet', 'hashtags', 'geo', 'source']
