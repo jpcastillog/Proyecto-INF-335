@@ -25,6 +25,7 @@ def get_twitts(hashtags, file_name, since_date, until_date, format = '', limit =
     c.Limit = limit
     c.Output = file_name
     c.Lang = "es"
+    c.Hide_output = True
     twint.run.Search(c)
     
 
@@ -62,6 +63,6 @@ def get(hashtags, limit=1000):
         file_name = f'./temp_files/{d}.csv'
         get_twitts(hashtags=hashtags, file_name=file_name, since_date=since_date, until_date=until_date, custom=[],limit=limit)
 
-# get(hashtags, limit=1000)
-merge_files()
+get(hashtags, limit=10000)
+# merge_files()
 # get_twitts(hashtags, 'test_data.csv', since_date = "2019-10-18 19:00:00", custom=[], until_date = "2019-10-19 23:59:59" , limit=1000)
