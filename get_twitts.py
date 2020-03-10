@@ -3,7 +3,7 @@ import os
 import glob 
 import pandas as pd
 
-hashtags = ['#chile', '#Chile', '#ChileViolaLosDerechosHumanos', '#ChileViolatesHumanRights', '#Noestamosenguerra', '#Piñerarenuncia', '#lamarchamásgrandedeChile','#ChileDesperto', '#Chiledesperto']
+hashtags = ['#chile', '#Chile', '#ChileViolaLosDerechosHumanos', '#ChileViolatesHumanRights', '#Noestamosenguerra', '#Piñerarenuncia', '#lamarchamásgrandedeChile', '#lamarchamasgrandedechile','#ChileDespertó', '#Chiledespertó', '#toquedequeda']
 custom_retrieve = ['date', 'timezone', 'user_id', 'username', 'tweet', 'hashtags', 'geo', 'source']
 
 
@@ -25,6 +25,7 @@ def get_twitts(hashtags, file_name, since_date, until_date, format = '', limit =
     c.Limit = limit
     c.Output = file_name
     c.Lang = "es"
+    c.Lowercase = True
     c.Hide_output = True
     twint.run.Search(c)
     
@@ -45,24 +46,23 @@ def merge_files(remove = False):
 
 # dates: lista de fechas sin hora
 def get(hashtags, limit=1000):
-    dates = ["2019-10-18", '2019-10-19', '2019-10-20', '2019-10-25', '2019-11-11']
+    # "2019-10-18", '2019-10-19',
+    dates = ['2019-10-18', '2019-10-19']
     for d in dates:
         split = d.split('-')
         print(split)
         since_day = int(split[-1])
         until_day = since_day +  1
-        print(since_day)
-        print(until_day)
+
         since_day = str(since_day) if len(str(since_day)) > 1 else f'0{since_day}'
         until_day = str(until_day) if len(str(until_day)) > 1 else f'0{until_day}'
-        print(since_day)
-        print(until_day)
+
         since_date = f'{split[0]}-{split[1]}-{since_day}'
         until_date = f'{split[0]}-{split[1]}-{until_day}'
         
         file_name = f'./temp_files/{d}.csv'
         get_twitts(hashtags=hashtags, file_name=file_name, since_date=since_date, until_date=until_date, custom=[],limit=limit)
 
-get(hashtags, limit=10000)
-# merge_files()
+# get(hashtags, limit=20000)
+merge_files()
 # get_twitts(hashtags, 'test_data.csv', since_date = "2019-10-18 19:00:00", custom=[], until_date = "2019-10-19 23:59:59" , limit=1000)
